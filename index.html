@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📊 Discriminant & Nature of Roots - رياضيات 12 عام | Mr. Mohammed Hesham</title>
+<meta name="description" content="امتحان تفاعلي عن استخدام المميز لتحديد عدد ونوع جذور المعادلة التربيعية - صف 12 عام">
+<meta name="author" content="Mr. Mohammed Hesham">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Cairo', sans-serif; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); }
+body.en-mode { font-family: 'Inter', sans-serif; direction: ltr; }
+.arabic-math { font-family: 'Amiri', 'Cairo', serif; }
+.correct { background-color: #dcfce7 !important; border-color: #16a34a !important; }
+.incorrect { background-color: #fee2e2 !important; border-color: #dc2626 !important; }
+.timer-warning { color: #dc2626 !important; animation: pulse 1s infinite; }
+@keyframes pulse { 50% { opacity: 0.7; } }
+@media print { .no-print { display: none !important; } }
+.success-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.875rem; }
+.grade-excellent { background: #dcfce7; color: #166534; }
+.grade-good { background: #fef3c7; color: #92400e; }
+.grade-pass { background: #dbeafe; color: #1e40af; }
+.grade-fail { background: #fee2e2; color: #991b1b; }
+.lang-switch { position: fixed; top: 16px; left: 16px; z-index: 100; background: white; padding: 6px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); display: flex; gap: 4px; border: 2px solid #d97706; }
+body.en-mode .lang-switch { left: auto; right: 16px; }
+.lang-btn { padding: 6px 14px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: all 0.3s; border: none; font-size: 0.875rem; background: transparent; color: #6b7280; }
+.lang-btn.active { background: #d97706; color: white; box-shadow: 0 2px 6px rgba(217,119,6,0.4); }
+.shuffle-badge { display: inline-block; background: linear-gradient(135deg, #d97706, #b45309); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; margin-right: 8px; }
+body.en-mode .shuffle-badge { margin-right: 0; margin-left: 8px; }
+.math-display { display: inline-block; direction: ltr; font-family: 'Amiri', serif; font-size: 1.1em; padding: 2px 6px; background: #fef3c7; border-radius: 4px; margin: 2px; color: #92400e; font-weight: 600; }
+.save-indicator { position: fixed; bottom: 20px; left: 20px; z-index: 200; background: #10b981; color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+body.en-mode .save-indicator { left: auto; right: 20px; }
+.save-indicator.show { opacity: 1; }
+.formula-box { background: #fef3c7; border: 2px solid #f59e0b; border-radius: 8px; padding: 12px; margin: 10px 0; font-family: 'Amiri', serif; direction: ltr; text-align: center; }
+.svg-graph { display: block; margin: 12px auto; background: white; border: 2px solid #e5e7eb; border-radius: 12px; padding: 8px; max-width: 100%; }
+.graph-container { text-align: center; margin: 10px 0; }
+.module-badge { display: inline-block; padding: 4px 16px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; margin-bottom: 8px; }
+.module-1 { background: #fef3c7; color: #92400e; }
+.module-2 { background: #dbeafe; color: #1e40af; }
+.module-3 { background: #fce7f3; color: #9f1239; }
+.module-4 { background: #ecfdf5; color: #065f46; }
+.module-5 { background: #ede9fe; color: #5b21b6; }
+.module-6 { background: #fee2e2; color: #991b1b; }
+</style>
+</head>
+<body class="p-4 md:p-8 min-h-screen">
+
+<div class="lang-switch no-print">
+<button class="lang-btn active" onclick="setLanguage('ar')" id="btn-ar">عربي</button>
+<button class="lang-btn" onclick="setLanguage('en')" id="btn-en">EN</button>
+</div>
+
+<div id="saveIndicator" class="save-indicator">💾 <span data-ar="تم الحفظ" data-en="Saved">تم الحفظ</span></div>
+
+<div id="timer-container" class="max-w-5xl mx-auto mb-4 text-center no-print">
+<div class="bg-white p-4 rounded-2xl shadow-lg inline-block border-2 border-amber-100">
+<span class="text-gray-600 ml-2">⏰ <span data-ar="الوقت المتبقي:" data-en="Time Left:">الوقت المتبقي:</span></span>
+<span id="timer" class="text-2xl font-bold text-amber-700 font-mono">60:00</span>
+<span class="shuffle-badge">📊 <span data-ar="المميز والجذور" data-en="Discriminant & Roots">المميز والجذور</span> - 30 <span data-ar="سؤال" data-en="Questions">سؤال</span></span>
+</div>
+</div>
+
+<div class="max-w-5xl mx-auto mb-6 flex flex-wrap gap-3 justify-center no-print">
+<button onclick="toggleAnswers()" class="bg-amber-700 hover:bg-amber-800 text-white px-5 py-2 rounded-xl font-medium transition shadow">👀 <span data-ar="إظهار/إخفاء الإجابات" data-en="Show/Hide Answers">إظهار/إخفاء الإجابات</span></button>
+<button onclick="window.print()" class="bg-gray-700 hover:bg-gray-900 text-white px-5 py-2 rounded-xl font-medium transition shadow">🖨️ <span data-ar="طباعة" data-en="Print">طباعة</span></button>
+<button onclick="reshuffleExam()" class="bg-gradient-to-r from-amber-700 to-orange-600 hover:from-amber-800 hover:to-orange-700 text-white px-5 py-2 rounded-xl font-medium transition shadow">🔄 <span data-ar="أسئلة جديدة" data-en="New Questions">أسئلة جديدة</span></button>
+<button onclick="clearProgress()" class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl font-medium transition shadow">🗑️ <span data-ar="مسح التقدم" data-en="Clear Progress">مسح التقدم</span></button>
+</div>
+
+<header class="max-w-5xl mx-auto bg-white p-8 rounded-3xl shadow-2xl mb-8 border-4 border-amber-500">
+<div class="text-center">
+<div class="inline-block bg-amber-700 text-white px-6 py-2 rounded-full text-sm font-bold mb-4">MATH GRADE 12 GENERAL - QUESTION 7</div>
+<h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">📊 <span data-ar="استخدام المميز لتحديد عدد ونوع جذور معادلة تربيعية" data-en="Using the Discriminant to Determine Number & Nature of Roots">استخدام المميز لتحديد عدد ونوع جذور معادلة تربيعية</span></h1>
+<h2 class="text-xl text-amber-700 font-semibold mb-2"><span data-ar="رياضيات صف 12 عام - ص 57 (المفهوم الأساسي: المميز)" data-en="Grade 12 General - Page 57 (Core Concept: Discriminant)">رياضيات صف 12 عام - ص 57 (المفهوم الأساسي: المميز)</span></h2>
+<p class="text-gray-600 mb-4"><span data-ar="Discriminant: Δ = b² - 4ac | Nature of Roots | Graphical Interpretation" data-en="Discriminant: Δ = b² - 4ac | Nature of Roots | Graphical Interpretation">المميز: Δ = b² - 4ac | طبيعة الجذور | التفسير البياني</span></p>
+<p class="text-sm text-green-600 font-semibold">💾 <span data-ar="يتم حفظ تقدمك تلقائياً - 30 سؤالاً في 6 أقسام" data-en="Your progress is auto-saved - 30 questions in 6 sections">يتم حفظ تقدمك تلقائياً - 30 سؤالاً في 6 أقسام</span></p>
+</div>
+<div class="mt-6 flex flex-wrap justify-center gap-4 text-sm text-gray-600">
+<span>📅 <span data-ar="التاريخ:" data-en="Date:">التاريخ:</span> <input type="text" id="examDate" class="border-b-2 border-amber-300 bg-transparent w-32 text-center"></span>
+<span>😊 <span data-ar="الاسم:" data-en="Name:">الاسم:</span> <input type="text" id="studentName" class="border-b-2 border-amber-300 bg-transparent w-40 text-center" data-placeholder-ar="اكتب اسمك" data-placeholder-en="Your name" placeholder="اكتب اسمك"></span>
+<span>🏫 <span data-ar="الشعبة:" data-en="Class:">الشعبة:</span> <input type="text" id="studentClass" class="border-b-2 border-amber-300 bg-transparent w-32 text-center" data-placeholder-ar="الشعبة" data-placeholder-en="Class" placeholder="الشعبة"></span>
+<span>⏰ <span data-ar="المدة: 60 دقيقة" data-en="Duration: 60 min">المدة: 60 دقيقة</span></span>
+<span>📊 <span data-ar="المجموع: 100 درجة" data-en="Total: 100 points">المجموع: 100 درجة</span></span>
+</div>
+</header>
+
+<div class="max-w-5xl mx-auto mb-6 bg-white p-4 rounded-xl shadow-lg border-2 border-amber-200 no-print">
+<h3 class="font-bold text-lg mb-3 text-amber-800 text-center">📐 <span data-ar="القوانين الأساسية" data-en="Key Formulas">القوانين الأساسية</span></h3>
+<div class="grid md:grid-cols-3 gap-3 text-sm">
+<div class="formula-box">
+<strong><span data-ar="المميز (Discriminant):" data-en="Discriminant:">المميز (Discriminant):</span></strong><br>
+<span class="math-display">Δ = b² - 4ac</span><br>
+<span data-ar="للمعادلة ax² + bx + c = 0" data-en="For equation ax² + bx + c = 0">للمعادلة ax² + bx + c = 0</span>
+</div>
+<div class="formula-box">
+<strong><span data-ar="Δ > 0:" data-en="Δ > 0:">Δ > 0:</span></strong><br>
+<span data-ar="جذران حقيقيان مختلفان" data-en="Two distinct real roots">جذران حقيقيان مختلفان</span><br>
+<span data-ar="القطع يقطع المحور x في نقطتين" data-en="Parabola crosses x-axis at 2 points">القطع يقطع المحور x في نقطتين</span>
+</div>
+<div class="formula-box">
+<strong><span data-ar="Δ = 0:" data-en="Δ = 0:">Δ = 0:</span></strong><br>
+<span data-ar="جذر حقيقي مكرر (واحد)" data-en="One repeated real root">جذر حقيقي مكرر (واحد)</span><br>
+<span data-ar="القطع يمس المحور x في نقطة واحدة" data-en="Parabola touches x-axis at 1 point">القطع يمس المحور x في نقطة واحدة</span>
+</div>
+<div class="formula-box">
+<strong><span data-ar="Δ < 0:" data-en="Δ < 0:">Δ < 0:</span></strong><br>
+<span data-ar="جذران مركبان (غير حقيقيين)" data-en="Two complex (non-real) roots">جذران مركبان (غير حقيقيين)</span><br>
+<span data-ar="القطع لا يقطع المحور x" data-en="Parabola doesn't cross x-axis">القطع لا يقطع المحور x</span>
+</div>
+<div class="formula-box">
+<strong><span data-ar="القانون العام:" data-en="Quadratic Formula:">القانون العام:</span></strong><br>
+<span class="math-display">x = (-b ± √Δ) / 2a</span><br>
+<span data-ar="√Δ يحدد طبيعة الجذور" data-en="√Δ determines nature of roots">√Δ يحدد طبيعة الجذور</span>
+</div>
+<div class="formula-box">
+<strong><span data-ar="العلاقة بالرسم البياني:" data-en="Graphical Relationship:">العلاقة بالرسم البياني:</span></strong><br>
+<span data-ar="عدد نقاط التقاطع مع المحور x = عدد الجذور الحقيقية" data-en="Number of x-intercepts = number of real roots">عدد نقاط التقاطع مع المحور x = عدد الجذور الحقيقية</span>
+</div>
+</div>
+</div>
+
+<main class="max-w-5xl mx-auto space-y-8" id="exam-content"></main>
+
+<div class="text-center no-print pb-8 mt-8">
+<button onclick="gradeExam()" class="bg-gradient-to-r from-amber-700 to-orange-600 hover:from-amber-800 hover:to-orange-700 text-white text-lg px-12 py-4 rounded-2xl font-bold shadow-xl transition transform hover:scale-105">🎯 <span data-ar="صحح إجاباتي!" data-en="Grade My Exam!">صحح إجاباتي!</span></button>
+</div>
+
+<div id="results-panel" class="max-w-5xl mx-auto mt-8 bg-white p-8 rounded-3xl shadow-2xl border-4 border-amber-500 hidden no-print">
+<h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">🏆 <span data-ar="نتيجتك يا بطل!" data-en="Your Result, Champion!">نتيجتك يا بطل!</span> 🏆</h2>
+<div class="grid md:grid-cols-3 gap-4 mb-6">
+<div class="bg-amber-50 p-4 rounded-xl text-center"><p>😊 <span data-ar="الاسم" data-en="Name">الاسم</span></p><p id="res-name" class="font-bold text-xl text-amber-700">-</p></div>
+<div class="bg-orange-50 p-4 rounded-xl text-center"><p>📅 <span data-ar="التاريخ" data-en="Date">التاريخ</span></p><p id="res-date" class="font-bold text-xl text-orange-700">-</p></div>
+<div class="bg-amber-50 p-4 rounded-xl text-center"><p>🌟 <span data-ar="المجموع" data-en="Total">المجموع</span></p><p id="res-total" class="font-bold text-3xl text-amber-700">0 / 100</p></div>
+</div>
+<div class="text-center mb-6">
+<span id="success-badge" class="success-badge grade-excellent">-</span>
+<p id="success-percent" class="text-4xl font-bold text-amber-700 mt-2">0%</p>
+<p class="text-sm text-gray-500"><span data-ar="نسبة النجاح" data-en="Success Rate">نسبة النجاح</span></p>
+</div>
+<div class="bg-gray-50 p-6 rounded-xl mb-6">
+<h3 class="font-bold text-lg mb-4 text-gray-800">📊 <span data-ar="أداؤك في كل قسم:" data-en="Your Performance by Section:">أداؤك في كل قسم:</span></h3>
+<div class="space-y-3" id="sections-performance"></div>
+</div>
+<div class="text-center">
+<button id="sendEmailBtn" onclick="sendResultsToEmail()" class="bg-gradient-to-r from-amber-700 to-orange-600 text-white text-lg px-8 py-3 rounded-2xl font-bold shadow-xl transition">📧 <span data-ar="أرسل النتيجة للمعلم" data-en="Send Result to Teacher">أرسل النتيجة للمعلم</span></button>
+<p id="emailStatus" class="text-sm mt-2 text-center font-medium"></p>
+</div>
+</div>
+
+<footer class="max-w-5xl mx-auto mt-10 mb-8 text-center text-gray-500 text-sm no-print">
+© Discriminant & Nature of Roots - Grade 12 General | Mr. Mohammed Hesham 📊
+</footer>
+
+<script>
+const PUBLIC_KEY = "Rb3Lq8tXaFmc5YHUH";
+const SERVICE_ID = "service_w15m64i";
+const TEMPLATE_ID = "template_5b0u2tq";
+const TARGET_EMAIL = "mohammedhesham872@gmail.com";
+emailjs.init(PUBLIC_KEY);
+
+const STORAGE_KEY = 'discriminant_roots_grade12_v1';
+const TOTAL_TIME = 3600;
+const TOTAL_QUESTIONS = 30;
+const TOTAL_SECTIONS = 6;
+const QUESTIONS_PER_SECTION = 5;
+
+let currentSeed = null;
+let answersVisible = false;
+let saveIndicatorTimeout = null;
+let currentLang = 'ar';
+let timeRemaining = TOTAL_TIME;
+let timerInterval;
+let examData;
+let correctAnswersMap = {};
+let rng = null;
+
+function mulberry32(a) {
+    return function() {
+        var t = a += 0x6D2B79F5;
+        t = Math.imul(t ^ t >>> 15, t | 1);
+        t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    }
+}
+
+function showSaveIndicator() {
+    const indicator = document.getElementById('saveIndicator');
+    indicator.classList.add('show');
+    if (saveIndicatorTimeout) clearTimeout(saveIndicatorTimeout);
+    saveIndicatorTimeout = setTimeout(() => indicator.classList.remove('show'), 1500);
+}
+
+function saveState(showIndicator = true) {
+    try {
+        const state = {
+            seed: currentSeed, lang: currentLang,
+            studentName: document.getElementById('studentName').value,
+            studentClass: document.getElementById('studentClass').value,
+            examDate: document.getElementById('examDate').value,
+            answers: getSelectedAnswers(),
+            timeRemaining: timeRemaining,
+            answersVisible: answersVisible, savedAt: Date.now()
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        if (showIndicator) showSaveIndicator();
+    } catch (e) { console.error('Save error:', e); }
+}
+
+function loadState() {
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        return saved ? JSON.parse(saved) : null;
+    } catch (e) { return null; }
+}
+
+function getSelectedAnswers() {
+    const answers = {};
+    for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+        const selected = document.querySelector('input[name="q'+i+'"]:checked');
+        if (selected) answers[i] = selected.value;
+    }
+    return answers;
+}
+
+function restoreAnswers(answers) {
+    if (!answers) return;
+    for (const [idx, val] of Object.entries(answers)) {
+        const radio = document.querySelector('input[name="q'+idx+'"][value="'+val+'"]');
+        if (radio) radio.checked = true;
+    }
+}
+
+function clearProgress() {
+    const msg = currentLang === 'ar' ? '⚠️ هل أنت متأكد من مسح كل التقدم؟' : '⚠️ Clear all progress?';
+    if (confirm(msg)) { localStorage.removeItem(STORAGE_KEY); location.reload(); }
+}
+
+function setupAnswerListeners() {
+    document.getElementById('exam-content').addEventListener('change', (e) => {
+        if (e.target.type === 'radio') saveState();
+    });
+}
+
+function setupInputListeners() {
+    ['studentName', 'studentClass', 'examDate'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('input', () => saveState(false));
+            el.addEventListener('blur', () => saveState());
+        }
+    });
+}
+
+// ==================== SVG DIAGRAMS ====================
+const svgGraphs = {
+    discriminant_formula: `<svg class="svg-graph" width="500" height="380" viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="490" height="370" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="25" text-anchor="middle" font-size="14" fill="#92400e" font-weight="bold">📐 المميز (Discriminant) - Δ = b² - 4ac</text>
+        <!-- Main formula -->
+        <rect x="20" y="45" width="460" height="60" rx="6" fill="#fde68a" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="70" text-anchor="middle" font-size="16" fill="#92400e" font-family="'Amiri', serif" font-weight="bold">Δ = b² - 4ac</text>
+        <text x="250" y="95" text-anchor="middle" font-size="11" fill="#92400e">For equation: ax² + bx + c = 0</text>
+        <!-- Three cases -->
+        <rect x="20" y="115" width="145" height="130" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+        <text x="92" y="135" text-anchor="middle" font-size="12" fill="#166534" font-weight="bold">Δ &gt; 0</text>
+        <text x="92" y="155" text-anchor="middle" font-size="10" fill="#166534">Two distinct</text>
+        <text x="92" y="170" text-anchor="middle" font-size="10" fill="#166534">real roots</text>
+        <text x="92" y="188" text-anchor="middle" font-size="9" fill="#166534">جذران حقيقيان</text>
+        <text x="92" y="203" text-anchor="middle" font-size="9" fill="#166534">مختلفان</text>
+        <!-- Parabola crossing x-axis twice -->
+        <path d="M 40 230 Q 70 180 92 160 Q 114 180 144 230" fill="none" stroke="#16a34a" stroke-width="2"/>
+        <line x1="40" y1="230" x2="144" y2="230" stroke="#374151" stroke-width="1"/>
+        <circle cx="60" cy="230" r="3" fill="#16a34a"/>
+        <circle cx="124" cy="230" r="3" fill="#16a34a"/>
+        <rect x="175" y="115" width="145" height="130" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="247" y="135" text-anchor="middle" font-size="12" fill="#92400e" font-weight="bold">Δ = 0</text>
+        <text x="247" y="155" text-anchor="middle" font-size="10" fill="#92400e">One repeated</text>
+        <text x="247" y="170" text-anchor="middle" font-size="10" fill="#92400e">real root</text>
+        <text x="247" y="188" text-anchor="middle" font-size="9" fill="#92400e">جذر حقيقي</text>
+        <text x="247" y="203" text-anchor="middle" font-size="9" fill="#92400e">مكرر (واحد)</text>
+        <!-- Parabola touching x-axis -->
+        <path d="M 195 230 Q 220 180 247 160 Q 274 180 299 230" fill="none" stroke="#f59e0b" stroke-width="2"/>
+        <line x1="195" y1="230" x2="299" y2="230" stroke="#374151" stroke-width="1"/>
+        <circle cx="247" cy="230" r="4" fill="#f59e0b"/>
+        <rect x="330" y="115" width="145" height="130" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+        <text x="402" y="135" text-anchor="middle" font-size="12" fill="#991b1b" font-weight="bold">Δ &lt; 0</text>
+        <text x="402" y="155" text-anchor="middle" font-size="10" fill="#991b1b">Two complex</text>
+        <text x="402" y="170" text-anchor="middle" font-size="10" fill="#991b1b">(non-real) roots</text>
+        <text x="402" y="188" text-anchor="middle" font-size="9" fill="#991b1b">جذران مركبان</text>
+        <text x="402" y="203" text-anchor="middle" font-size="9" fill="#991b1b">(غير حقيقيين)</text>
+        <!-- Parabola not crossing x-axis -->
+        <path d="M 350 230 Q 380 180 402 160 Q 424 180 454 230" fill="none" stroke="#dc2626" stroke-width="2"/>
+        <line x1="350" y1="230" x2="454" y2="230" stroke="#374151" stroke-width="1"/>
+        <!-- Summary -->
+        <rect x="20" y="255" width="460" height="110" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="275" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">🔑 Key Relationships:</text>
+        <text x="250" y="293" text-anchor="middle" font-size="10" fill="#92400e">• Δ &gt; 0: Parabola crosses x-axis at 2 points (يقطع المحور x في نقطتين)</text>
+        <text x="250" y="310" text-anchor="middle" font-size="10" fill="#92400e">• Δ = 0: Parabola touches x-axis at 1 point (vertex on x-axis) (يمس المحور x)</text>
+        <text x="250" y="327" text-anchor="middle" font-size="10" fill="#92400e">• Δ &lt; 0: Parabola doesn't cross x-axis (لا يقطع المحور x)</text>
+        <text x="250" y="345" text-anchor="middle" font-size="10" fill="#92400e">• Number of x-intercepts = Number of real roots</text>
+        <text x="250" y="360" text-anchor="middle" font-size="9" fill="#92400e" font-weight="bold">عدد نقاط التقاطع مع المحور x = عدد الجذور الحقيقية</text>
+    </svg>`,
+    
+    q26_solution: `<svg class="svg-graph" width="500" height="360" viewBox="0 0 500 360" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="490" height="350" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+        <text x="250" y="25" text-anchor="middle" font-size="14" fill="#1e40af" font-weight="bold">📝 السؤال 26: 7x² - 11x + 5 = 0</text>
+        <!-- Step 1 -->
+        <rect x="20" y="45" width="460" height="50" rx="6" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/>
+        <text x="250" y="65" text-anchor="middle" font-size="11" fill="#1e40af" font-weight="bold">Step 1: Identify a, b, c</text>
+        <text x="250" y="85" text-anchor="middle" font-size="11" fill="#1e40af" font-family="'Amiri', serif">a = 7, b = -11, c = 5</text>
+        <!-- Step 2 -->
+        <rect x="20" y="105" width="460" height="60" rx="6" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/>
+        <text x="250" y="125" text-anchor="middle" font-size="11" fill="#1e40af" font-weight="bold">Step 2: Calculate Discriminant Δ = b² - 4ac</text>
+        <text x="250" y="145" text-anchor="middle" font-size="11" fill="#1e40af" font-family="'Amiri', serif">Δ = (-11)² - 4(7)(5) = 121 - 140 = -19</text>
+        <!-- Step 3 -->
+        <rect x="20" y="175" width="460" height="60" rx="6" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/>
+        <text x="250" y="195" text-anchor="middle" font-size="11" fill="#1e40af" font-weight="bold">Step 3: Interpret the Result</text>
+        <text x="250" y="215" text-anchor="middle" font-size="11" fill="#1e40af">Δ = -19 &lt; 0 → Two complex (non-real) roots</text>
+        <text x="250" y="230" text-anchor="middle" font-size="10" fill="#1e40af">جذران مركبان (غير حقيقيين)</text>
+        <!-- Graph -->
+        <rect x="20" y="245" width="460" height="100" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="265" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">📊 Graphical Interpretation:</text>
+        <text x="250" y="285" text-anchor="middle" font-size="10" fill="#92400e">Since a = 7 &gt; 0, parabola opens UP</text>
+        <text x="250" y="302" text-anchor="middle" font-size="10" fill="#92400e">Since Δ &lt; 0, parabola is entirely ABOVE x-axis</text>
+        <text x="250" y="319" text-anchor="middle" font-size="10" fill="#92400e">No x-intercepts → No real roots</text>
+        <text x="250" y="336" text-anchor="middle" font-size="10" fill="#92400e" font-weight="bold">Answer: b) -19, جذران مركبان</text>
+    </svg>`,
+    
+    q27_solution: `<svg class="svg-graph" width="500" height="360" viewBox="0 0 500 360" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="490" height="350" rx="12" fill="#fce7f3" stroke="#ec4899" stroke-width="2"/>
+        <text x="250" y="25" text-anchor="middle" font-size="14" fill="#9f1239" font-weight="bold">📝 السؤال 27: x² + 22x + 121 = 0</text>
+        <!-- Step 1 -->
+        <rect x="20" y="45" width="460" height="50" rx="6" fill="#fbcfe8" stroke="#ec4899" stroke-width="2"/>
+        <text x="250" y="65" text-anchor="middle" font-size="11" fill="#9f1239" font-weight="bold">Step 1: Identify a, b, c</text>
+        <text x="250" y="85" text-anchor="middle" font-size="11" fill="#9f1239" font-family="'Amiri', serif">a = 1, b = 22, c = 121</text>
+        <!-- Step 2 -->
+        <rect x="20" y="105" width="460" height="60" rx="6" fill="#fbcfe8" stroke="#ec4899" stroke-width="2"/>
+        <text x="250" y="125" text-anchor="middle" font-size="11" fill="#9f1239" font-weight="bold">Step 2: Calculate Discriminant</text>
+        <text x="250" y="145" text-anchor="middle" font-size="11" fill="#9f1239" font-family="'Amiri', serif">Δ = 22² - 4(1)(121) = 484 - 484 = 0</text>
+        <!-- Step 3 -->
+        <rect x="20" y="175" width="460" height="60" rx="6" fill="#fbcfe8" stroke="#ec4899" stroke-width="2"/>
+        <text x="250" y="195" text-anchor="middle" font-size="11" fill="#9f1239" font-weight="bold">Step 3: Interpret</text>
+        <text x="250" y="215" text-anchor="middle" font-size="11" fill="#9f1239">Δ = 0 → One repeated real root (جذر حقيقي مكرر)</text>
+        <text x="250" y="230" text-anchor="middle" font-size="10" fill="#9f1239" font-family="'Amiri', serif">x = -b/2a = -22/2 = -11 (repeated)</text>
+        <!-- Note -->
+        <rect x="20" y="245" width="460" height="60" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="265" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">💡 Note: x² + 22x + 121 = (x + 11)²</text>
+        <text x="250" y="283" text-anchor="middle" font-size="10" fill="#92400e">This is a PERFECT SQUARE trinomial!</text>
+        <text x="250" y="298" text-anchor="middle" font-size="10" fill="#92400e">Perfect square → Δ = 0 always</text>
+        <!-- Answer -->
+        <rect x="20" y="315" width="460" height="30" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="335" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">Answer: a) 0, جذر حقيقي نسبي واحد مكرر</text>
+    </svg>`,
+    
+    q28_solution: `<svg class="svg-graph" width="500" height="360" viewBox="0 0 500 360" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="490" height="350" rx="12" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+        <text x="250" y="25" text-anchor="middle" font-size="14" fill="#065f46" font-weight="bold">📝 السؤال 28: -5x² + 8x - 1 = 0</text>
+        <!-- Step 1 -->
+        <rect x="20" y="45" width="460" height="50" rx="6" fill="#d1fae5" stroke="#10b981" stroke-width="2"/>
+        <text x="250" y="65" text-anchor="middle" font-size="11" fill="#065f46" font-weight="bold">Step 1: Identify a, b, c</text>
+        <text x="250" y="85" text-anchor="middle" font-size="11" fill="#065f46" font-family="'Amiri', serif">a = -5, b = 8, c = -1</text>
+        <!-- Step 2 -->
+        <rect x="20" y="105" width="460" height="60" rx="6" fill="#d1fae5" stroke="#10b981" stroke-width="2"/>
+        <text x="250" y="125" text-anchor="middle" font-size="11" fill="#065f46" font-weight="bold">Step 2: Calculate Discriminant</text>
+        <text x="250" y="145" text-anchor="middle" font-size="11" fill="#065f46" font-family="'Amiri', serif">Δ = 8² - 4(-5)(-1) = 64 - 20 = 44</text>
+        <!-- Step 3 -->
+        <rect x="20" y="175" width="460" height="60" rx="6" fill="#d1fae5" stroke="#10b981" stroke-width="2"/>
+        <text x="250" y="195" text-anchor="middle" font-size="11" fill="#065f46" font-weight="bold">Step 3: Interpret</text>
+        <text x="250" y="215" text-anchor="middle" font-size="11" fill="#065f46">Δ = 44 &gt; 0 → Two distinct real roots</text>
+        <text x="250" y="230" text-anchor="middle" font-size="10" fill="#065f46">Is 44 a perfect square? √44 ≈ 6.63 (NO)</text>
+        <text x="250" y="245" text-anchor="middle" font-size="10" fill="#065f46">→ Roots are IRRATIONAL (غير نسبيين)</text>
+        <!-- Answer -->
+        <rect x="20" y="260" width="460" height="85" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="280" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">Answer: a) جذران حقيقيان نسبيان... wait!</text>
+        <text x="250" y="300" text-anchor="middle" font-size="10" fill="#92400e">Since Δ = 44 is NOT a perfect square,</text>
+        <text x="250" y="317" text-anchor="middle" font-size="10" fill="#92400e">roots are IRRATIONAL (غير نسبيين)</text>
+        <text x="250" y="335" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">Correct: جذران حقيقيان غير نسبيين</text>
+    </svg>`,
+    
+    q29_solution: `<svg class="svg-graph" width="500" height="360" viewBox="0 0 500 360" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="490" height="350" rx="12" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+        <text x="250" y="25" text-anchor="middle" font-size="14" fill="#5b21b6" font-weight="bold">📝 السؤال 29: 15x² - 7x - 4 = 0</text>
+        <!-- Step 1 -->
+        <rect x="20" y="45" width="460" height="50" rx="6" fill="#ddd6fe" stroke="#7c3aed" stroke-width="2"/>
+        <text x="250" y="65" text-anchor="middle" font-size="11" fill="#5b21b6" font-weight="bold">Step 1: Identify a, b, c</text>
+        <text x="250" y="85" text-anchor="middle" font-size="11" fill="#5b21b6" font-family="'Amiri', serif">a = 15, b = -7, c = -4</text>
+        <!-- Step 2 -->
+        <rect x="20" y="105" width="460" height="60" rx="6" fill="#ddd6fe" stroke="#7c3aed" stroke-width="2"/>
+        <text x="250" y="125" text-anchor="middle" font-size="11" fill="#5b21b6" font-weight="bold">Step 2: Calculate Discriminant</text>
+        <text x="250" y="145" text-anchor="middle" font-size="11" fill="#5b21b6" font-family="'Amiri', serif">Δ = (-7)² - 4(15)(-4) = 49 + 240 = 289</text>
+        <!-- Step 3 -->
+        <rect x="20" y="175" width="460" height="60" rx="6" fill="#ddd6fe" stroke="#7c3aed" stroke-width="2"/>
+        <text x="250" y="195" text-anchor="middle" font-size="11" fill="#5b21b6" font-weight="bold">Step 3: Interpret</text>
+        <text x="250" y="215" text-anchor="middle" font-size="11" fill="#5b21b6">Δ = 289 &gt; 0 → Two distinct real roots</text>
+        <text x="250" y="230" text-anchor="middle" font-size="10" fill="#5b21b6">Is 289 a perfect square? √289 = 17 (YES!)</text>
+        <text x="250" y="245" text-anchor="middle" font-size="10" fill="#5b21b6">→ Roots are RATIONAL (نسبيين)</text>
+        <!-- Answer -->
+        <rect x="20" y="260" width="460" height="85" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="280" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">Answer: d) جذران حقيقيان نسبيان</text>
+        <text x="250" y="300" text-anchor="middle" font-size="10" fill="#92400e">Roots: x = (7 ± 17)/30</text>
+        <text x="250" y="317" text-anchor="middle" font-size="10" fill="#92400e">x = 24/30 = 4/5 or x = -10/30 = -1/3</text>
+        <text x="250" y="335" text-anchor="middle" font-size="10" fill="#92400e" font-weight="bold">Both roots are rational numbers! ✓</text>
+    </svg>`,
+    
+    q30_graphical: `<svg class="svg-graph" width="500" height="400" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="490" height="390" rx="12" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+        <text x="250" y="25" text-anchor="middle" font-size="14" fill="#991b1b" font-weight="bold">📊 السؤال 30: التفسير البياني للمميز السالب</text>
+        <!-- Three graphs side by side -->
+        <!-- Graph 1: Δ > 0 -->
+        <rect x="20" y="45" width="145" height="200" rx="6" fill="#fecaca" stroke="#dc2626" stroke-width="2"/>
+        <text x="92" y="65" text-anchor="middle" font-size="11" fill="#991b1b" font-weight="bold">Δ &gt; 0</text>
+        <text x="92" y="80" text-anchor="middle" font-size="9" fill="#991b1b">Two x-intercepts</text>
+        <!-- Parabola crossing x-axis -->
+        <path d="M 35 200 Q 60 100 92 80 Q 124 100 149 200" fill="none" stroke="#dc2626" stroke-width="2"/>
+        <line x1="35" y1="200" x2="149" y2="200" stroke="#374151" stroke-width="1"/>
+        <circle cx="60" cy="200" r="3" fill="#16a34a"/>
+        <circle cx="124" cy="200" r="3" fill="#16a34a"/>
+        <text x="92" y="220" text-anchor="middle" font-size="8" fill="#991b1b">2 real roots</text>
+        <text x="92" y="235" text-anchor="middle" font-size="8" fill="#991b1b">يقطع المحور x</text>
+        <!-- Graph 2: Δ = 0 -->
+        <rect x="175" y="45" width="145" height="200" rx="6" fill="#fecaca" stroke="#dc2626" stroke-width="2"/>
+        <text x="247" y="65" text-anchor="middle" font-size="11" fill="#991b1b" font-weight="bold">Δ = 0</text>
+        <text x="247" y="80" text-anchor="middle" font-size="9" fill="#991b1b">One x-intercept</text>
+        <!-- Parabola touching x-axis -->
+        <path d="M 190 200 Q 220 120 247 100 Q 274 120 304 200" fill="none" stroke="#dc2626" stroke-width="2"/>
+        <line x1="190" y1="200" x2="304" y2="200" stroke="#374151" stroke-width="1"/>
+        <circle cx="247" cy="200" r="4" fill="#f59e0b"/>
+        <text x="247" y="220" text-anchor="middle" font-size="8" fill="#991b1b">1 repeated root</text>
+        <text x="247" y="235" text-anchor="middle" font-size="8" fill="#991b1b">يمس المحور x</text>
+        <!-- Graph 3: Δ < 0 -->
+        <rect x="330" y="45" width="145" height="200" rx="6" fill="#fecaca" stroke="#dc2626" stroke-width="2"/>
+        <text x="402" y="65" text-anchor="middle" font-size="11" fill="#991b1b" font-weight="bold">Δ &lt; 0</text>
+        <text x="402" y="80" text-anchor="middle" font-size="9" fill="#991b1b">No x-intercepts</text>
+        <!-- Parabola above x-axis -->
+        <path d="M 345 180 Q 375 120 402 100 Q 429 120 459 180" fill="none" stroke="#dc2626" stroke-width="2"/>
+        <line x1="345" y1="200" x2="459" y2="200" stroke="#374151" stroke-width="1"/>
+        <text x="402" y="220" text-anchor="middle" font-size="8" fill="#991b1b">No real roots</text>
+        <text x="402" y="235" text-anchor="middle" font-size="8" fill="#991b1b">لا يقطع المحور x</text>
+        <!-- Question 30 specific -->
+        <rect x="20" y="255" width="460" height="130" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="275" text-anchor="middle" font-size="12" fill="#92400e" font-weight="bold">السؤال 30: إذا كان المميز سالباً (Δ &lt; 0)</text>
+        <text x="250" y="295" text-anchor="middle" font-size="11" fill="#92400e">فإن التمثيل البياني للدالة:</text>
+        <text x="250" y="315" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">لا يقطع المحور x (does NOT cross x-axis)</text>
+        <text x="250" y="335" text-anchor="middle" font-size="10" fill="#92400e">• إذا a &gt; 0: القطع كله فوق المحور x</text>
+        <text x="250" y="352" text-anchor="middle" font-size="10" fill="#92400e">• إذا a &lt; 0: القطع كله تحت المحور x</text>
+        <text x="250" y="372" text-anchor="middle" font-size="10" fill="#92400e" font-weight="bold">Answer: a) لا يقطع المحور x</text>
+    </svg>`,
+    
+    discriminant_examples: `<svg class="svg-graph" width="500" height="400" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="490" height="390" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="25" text-anchor="middle" font-size="14" fill="#92400e" font-weight="bold">📋 أمثلة على حساب المميز</text>
+        <!-- Example 1 -->
+        <rect x="20" y="45" width="460" height="70" rx="6" fill="#fde68a" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="65" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">Example 1: 2x² + 5x + 3 = 0</text>
+        <text x="250" y="83" text-anchor="middle" font-size="10" fill="#92400e" font-family="'Amiri', serif">a=2, b=5, c=3 → Δ = 25 - 24 = 1 &gt; 0</text>
+        <text x="250" y="100" text-anchor="middle" font-size="10" fill="#92400e">√1 = 1 (perfect square) → Two RATIONAL real roots</text>
+        <text x="250" y="113" text-anchor="middle" font-size="9" fill="#92400e">Roots: x = (-5±1)/4 → x = -1 or x = -3/2</text>
+        <!-- Example 2 -->
+        <rect x="20" y="125" width="460" height="70" rx="6" fill="#fde68a" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="145" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">Example 2: x² + 4x + 5 = 0</text>
+        <text x="250" y="163" text-anchor="middle" font-size="10" fill="#92400e" font-family="'Amiri', serif">a=1, b=4, c=5 → Δ = 16 - 20 = -4 &lt; 0</text>
+        <text x="250" y="180" text-anchor="middle" font-size="10" fill="#92400e">Δ &lt; 0 → Two COMPLEX (non-real) roots</text>
+        <text x="250" y="193" text-anchor="middle" font-size="9" fill="#92400e">Roots: x = (-4±√(-4))/2 = -2 ± i (complex)</text>
+        <!-- Example 3 -->
+        <rect x="20" y="205" width="460" height="70" rx="6" fill="#fde68a" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="225" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">Example 3: x² - 6x + 9 = 0</text>
+        <text x="250" y="243" text-anchor="middle" font-size="10" fill="#92400e" font-family="'Amiri', serif">a=1, b=-6, c=9 → Δ = 36 - 36 = 0</text>
+        <text x="250" y="260" text-anchor="middle" font-size="10" fill="#92400e">Δ = 0 → One REPEATED real root</text>
+        <text x="250" y="273" text-anchor="middle" font-size="9" fill="#92400e">Note: x² - 6x + 9 = (x-3)² → x = 3 (repeated)</text>
+        <!-- Example 4 -->
+        <rect x="20" y="285" width="460" height="70" rx="6" fill="#fde68a" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="305" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">Example 4: 3x² + 2x - 1 = 0</text>
+        <text x="250" y="323" text-anchor="middle" font-size="10" fill="#92400e" font-family="'Amiri', serif">a=3, b=2, c=-1 → Δ = 4 + 12 = 16 &gt; 0</text>
+        <text x="250" y="340" text-anchor="middle" font-size="10" fill="#92400e">√16 = 4 (perfect square) → Two RATIONAL real roots</text>
+        <text x="250" y="353" text-anchor="middle" font-size="9" fill="#92400e">Roots: x = (-2±4)/6 → x = 1/3 or x = -1</text>
+        <!-- Summary -->
+        <rect x="20" y="365" width="460" height="20" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="380" text-anchor="middle" font-size="10" fill="#92400e" font-weight="bold">Key: If Δ is perfect square → rational roots | If Δ not perfect square → irrational roots</text>
+    </svg>`,
+    
+    rational_vs_irrational: `<svg class="svg-graph" width="500" height="340" viewBox="0 0 500 340" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="490" height="330" rx="12" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+        <text x="250" y="25" text-anchor="middle" font-size="14" fill="#065f46" font-weight="bold">🔢 نسبي vs غير نسبي - Rational vs Irrational</text>
+        <!-- Rational roots -->
+        <rect x="20" y="45" width="220" height="140" rx="6" fill="#d1fae5" stroke="#10b981" stroke-width="2"/>
+        <text x="130" y="65" text-anchor="middle" font-size="11" fill="#065f46" font-weight="bold">Rational Roots (نسبية)</text>
+        <text x="130" y="85" text-anchor="middle" font-size="10" fill="#065f46">Δ &gt; 0 AND</text>
+        <text x="130" y="102" text-anchor="middle" font-size="10" fill="#065f46">Δ is a PERFECT SQUARE</text>
+        <text x="130" y="120" text-anchor="middle" font-size="10" fill="#065f46">المميز مربع كامل</text>
+        <text x="130" y="140" text-anchor="middle" font-size="9" fill="#065f46">Examples of perfect squares:</text>
+        <text x="130" y="155" text-anchor="middle" font-size="9" fill="#065f46">1, 4, 9, 16, 25, 36, 49, 64, 81, 100...</text>
+        <text x="130" y="172" text-anchor="middle" font-size="9" fill="#065f46">Roots can be written as fractions</text>
+        <!-- Irrational roots -->
+        <rect x="260" y="45" width="220" height="140" rx="6" fill="#d1fae5" stroke="#10b981" stroke-width="2"/>
+        <text x="370" y="65" text-anchor="middle" font-size="11" fill="#065f46" font-weight="bold">Irrational Roots (غير نسبية)</text>
+        <text x="370" y="85" text-anchor="middle" font-size="10" fill="#065f46">Δ &gt; 0 AND</text>
+        <text x="370" y="102" text-anchor="middle" font-size="10" fill="#065f46">Δ is NOT a perfect square</text>
+        <text x="370" y="120" text-anchor="middle" font-size="10" fill="#065f46">المميز ليس مربعاً كاملاً</text>
+        <text x="370" y="140" text-anchor="middle" font-size="9" fill="#065f46">Examples of non-perfect squares:</text>
+        <text x="370" y="155" text-anchor="middle" font-size="9" fill="#065f46">2, 3, 5, 6, 7, 8, 10, 11, 12...</text>
+        <text x="370" y="172" text-anchor="middle" font-size="9" fill="#065f46">Roots contain √ (irrational)</text>
+        <!-- Complex roots -->
+        <rect x="20" y="195" width="460" height="60" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="215" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">Complex Roots (مركبة/غير حقيقية)</text>
+        <text x="250" y="233" text-anchor="middle" font-size="10" fill="#92400e">Δ &lt; 0 → Roots involve √(negative number) = imaginary unit i</text>
+        <text x="250" y="250" text-anchor="middle" font-size="10" fill="#92400e">Roots are complex conjugates: a ± bi</text>
+        <!-- Decision tree -->
+        <rect x="20" y="265" width="460" height="60" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="285" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">🔑 Decision Tree:</text>
+        <text x="250" y="303" text-anchor="middle" font-size="10" fill="#92400e">Δ &lt; 0 → Complex | Δ = 0 → One repeated | Δ &gt; 0 → Check if perfect square</text>
+        <text x="250" y="320" text-anchor="middle" font-size="10" fill="#92400e">Perfect square → Rational | Not perfect square → Irrational</text>
+    </svg>`,
+    
+    parabola_interpretation: `<svg class="svg-graph" width="500" height="380" viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="490" height="370" rx="12" fill="#fce7f3" stroke="#ec4899" stroke-width="2"/>
+        <text x="250" y="25" text-anchor="middle" font-size="14" fill="#9f1239" font-weight="bold">📈 التفسير البياني - Graphical Interpretation</text>
+        <!-- Case 1: Δ > 0, a > 0 -->
+        <rect x="20" y="45" width="220" height="100" rx="6" fill="#fbcfe8" stroke="#ec4899" stroke-width="2"/>
+        <text x="130" y="65" text-anchor="middle" font-size="10" fill="#9f1239" font-weight="bold">Δ &gt; 0, a &gt; 0</text>
+        <path d="M 40 130 Q 80 80 130 70 Q 180 80 220 130" fill="none" stroke="#ec4899" stroke-width="2"/>
+        <line x1="40" y1="130" x2="220" y2="130" stroke="#374151" stroke-width="1"/>
+        <circle cx="70" cy="130" r="3" fill="#dc2626"/>
+        <circle cx="190" cy="130" r="3" fill="#dc2626"/>
+        <text x="130" y="145" text-anchor="middle" font-size="8" fill="#9f1239">Opens UP, 2 x-intercepts</text>
+        <!-- Case 2: Δ = 0 -->
+        <rect x="260" y="45" width="220" height="100" rx="6" fill="#fbcfe8" stroke="#ec4899" stroke-width="2"/>
+        <text x="370" y="65" text-anchor="middle" font-size="10" fill="#9f1239" font-weight="bold">Δ = 0</text>
+        <path d="M 280 130 Q 330 80 370 70 Q 410 80 460 130" fill="none" stroke="#ec4899" stroke-width="2"/>
+        <line x1="280" y1="130" x2="460" y2="130" stroke="#374151" stroke-width="1"/>
+        <circle cx="370" cy="130" r="4" fill="#f59e0b"/>
+        <text x="370" y="145" text-anchor="middle" font-size="8" fill="#9f1239">Vertex on x-axis, 1 intercept</text>
+        <!-- Case 3: Δ < 0, a > 0 -->
+        <rect x="20" y="155" width="220" height="100" rx="6" fill="#fbcfe8" stroke="#ec4899" stroke-width="2"/>
+        <text x="130" y="175" text-anchor="middle" font-size="10" fill="#9f1239" font-weight="bold">Δ &lt; 0, a &gt; 0</text>
+        <path d="M 40 230 Q 80 190 130 180 Q 180 190 220 230" fill="none" stroke="#ec4899" stroke-width="2"/>
+        <line x1="40" y1="240" x2="220" y2="240" stroke="#374151" stroke-width="1"/>
+        <text x="130" y="255" text-anchor="middle" font-size="8" fill="#9f1239">Above x-axis, no intercepts</text>
+        <!-- Case 4: Δ < 0, a < 0 -->
+        <rect x="260" y="155" width="220" height="100" rx="6" fill="#fbcfe8" stroke="#ec4899" stroke-width="2"/>
+        <text x="370" y="175" text-anchor="middle" font-size="10" fill="#9f1239" font-weight="bold">Δ &lt; 0, a &lt; 0</text>
+        <path d="M 280 180 Q 330 220 370 230 Q 410 220 460 180" fill="none" stroke="#ec4899" stroke-width="2"/>
+        <line x1="280" y1="170" x2="460" y2="170" stroke="#374151" stroke-width="1"/>
+        <text x="370" y="255" text-anchor="middle" font-size="8" fill="#9f1239">Below x-axis, no intercepts</text>
+        <!-- Summary -->
+        <rect x="20" y="265" width="460" height="100" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="285" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">🔑 Key Points for Question 30:</text>
+        <text x="250" y="303" text-anchor="middle" font-size="10" fill="#92400e">If Δ &lt; 0 (negative discriminant):</text>
+        <text x="250" y="320" text-anchor="middle" font-size="10" fill="#92400e">• The parabola does NOT cross the x-axis</text>
+        <text x="250" y="337" text-anchor="middle" font-size="10" fill="#92400e">• No real roots exist</text>
+        <text x="250" y="354" text-anchor="middle" font-size="10" fill="#92400e">• If a &gt; 0: parabola is entirely above x-axis</text>
+        <text x="250" y="368" text-anchor="middle" font-size="10" fill="#92400e">• If a &lt; 0: parabola is entirely below x-axis</text>
+    </svg>`,
+    
+    perfect_squares_list: `<svg class="svg-graph" width="500" height="320" viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="490" height="310" rx="12" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+        <text x="250" y="25" text-anchor="middle" font-size="14" fill="#5b21b6" font-weight="bold">🔢 المربعات الكاملة الشائعة - Common Perfect Squares</text>
+        <!-- Grid of perfect squares -->
+        <g font-size="10" fill="#5b21b6">
+            <text x="50" y="50">1² = 1</text>
+            <text x="150" y="50">2² = 4</text>
+            <text x="250" y="50">3² = 9</text>
+            <text x="350" y="50">4² = 16</text>
+            <text x="430" y="50">5² = 25</text>
+            <text x="50" y="70">6² = 36</text>
+            <text x="150" y="70">7² = 49</text>
+            <text x="250" y="70">8² = 64</text>
+            <text x="350" y="70">9² = 81</text>
+            <text x="430" y="70">10² = 100</text>
+            <text x="50" y="90">11² = 121</text>
+            <text x="150" y="90">12² = 144</text>
+            <text x="250" y="90">13² = 169</text>
+            <text x="350" y="90">14² = 196</text>
+            <text x="430" y="90">15² = 225</text>
+            <text x="50" y="110">16² = 256</text>
+            <text x="150" y="110">17² = 289</text>
+            <text x="250" y="110">18² = 324</text>
+            <text x="350" y="110">19² = 361</text>
+            <text x="430" y="110">20² = 400</text>
+        </g>
+        <!-- Important note -->
+        <rect x="20" y="130" width="460" height="80" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="150" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">💡 Why Perfect Squares Matter:</text>
+        <text x="250" y="168" text-anchor="middle" font-size="10" fill="#92400e">If Δ is a perfect square → √Δ is an integer</text>
+        <text x="250" y="185" text-anchor="middle" font-size="10" fill="#92400e">→ Roots are RATIONAL (can be written as fractions)</text>
+        <text x="250" y="202" text-anchor="middle" font-size="10" fill="#92400e">If Δ is NOT a perfect square → √Δ is irrational</text>
+        <text x="250" y="219" text-anchor="middle" font-size="10" fill="#92400e">→ Roots are IRRATIONAL (contain √)</text>
+        <!-- Examples from questions -->
+        <rect x="20" y="220" width="460" height="85" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="240" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">Examples from Questions:</text>
+        <text x="250" y="258" text-anchor="middle" font-size="10" fill="#92400e">Q26: Δ = -19 &lt; 0 → Complex roots</text>
+        <text x="250" y="275" text-anchor="middle" font-size="10" fill="#92400e">Q27: Δ = 0 → One repeated root (perfect square trinomial)</text>
+        <text x="250" y="292" text-anchor="middle" font-size="10" fill="#92400e">Q28: Δ = 44 (not perfect square) → Irrational roots</text>
+        <text x="250" y="307" text-anchor="middle" font-size="10" fill="#92400e">Q29: Δ = 289 = 17² (perfect square!) → Rational roots</text>
+    </svg>`
+};
+
+// ==================== EXAM DATA - 30 QUESTIONS ====================
+const originalExamData = {
+    sections: [
+        {
+            id: 'sec1',
+            title: { ar: '🔹 القسم 1: مفهوم المميز (Q1-Q5)', en: '🔹 Section 1: Discriminant Concept (Q1-Q5)' },
+            questions: [
+                {
+                    q: { ar: '<strong>السؤال 1:</strong> ما هو المميز (Discriminant) للمعادلة التربيعية ax² + bx + c = 0؟', en: '<strong>Question 1:</strong> What is the discriminant of ax² + bx + c = 0?' },
+                    svg: svgGraphs.discriminant_formula,
+                    options: [
+                        { ar: '<span class="math-display">Δ = b² - 4ac</span>', en: '<span class="math-display">Δ = b² - 4ac</span>' },
+                        { ar: '<span class="math-display">Δ = b² + 4ac</span>', en: '<span class="math-display">Δ = b² + 4ac</span>' },
+                        { ar: '<span class="math-display">Δ = -b ± √(b²-4ac)</span>', en: '<span class="math-display">Δ = -b ± √(b²-4ac)</span>' },
+                        { ar: '<span class="math-display">Δ = 4ac - b²</span>', en: '<span class="math-display">Δ = 4ac - b²</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'المميز Δ = b² - 4ac، وهو المقدار تحت الجذر في القانون العام', en: 'Discriminant Δ = b² - 4ac, the expression under the square root in quadratic formula' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 2:</strong> إذا كان Δ > 0، فما عدد ونوع الجذور؟', en: '<strong>Question 2:</strong> If Δ > 0, what is the number and nature of roots?' },
+                    options: [
+                        { ar: 'جذران حقيقيان مختلفان', en: 'Two distinct real roots' },
+                        { ar: 'جذر حقيقي واحد مكرر', en: 'One repeated real root' },
+                        { ar: 'جذران مركبان', en: 'Two complex roots' },
+                        { ar: 'لا توجد جذور', en: 'No roots' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Δ > 0 يعني أن √Δ عدد حقيقي موجب، إذن يوجد جذران حقيقيان مختلفان', en: 'Δ > 0 means √Δ is real positive, so two distinct real roots exist' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 3:</strong> إذا كان Δ = 0، فما عدد ونوع الجذور؟', en: '<strong>Question 3:</strong> If Δ = 0, what is the number and nature of roots?' },
+                    options: [
+                        { ar: 'جذر حقيقي واحد مكرر', en: 'One repeated real root' },
+                        { ar: 'جذران حقيقيان مختلفان', en: 'Two distinct real roots' },
+                        { ar: 'جذران مركبان', en: 'Two complex roots' },
+                        { ar: 'لا توجد جذور', en: 'No roots' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Δ = 0 يعني أن √Δ = 0، إذن x = -b/2a (جذر واحد مكرر)', en: 'Δ = 0 means √Δ = 0, so x = -b/2a (one repeated root)' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 4:</strong> إذا كان Δ < 0، فما عدد ونوع الجذور؟', en: '<strong>Question 4:</strong> If Δ < 0, what is the number and nature of roots?' },
+                    options: [
+                        { ar: 'جذران مركبان (غير حقيقيين)', en: 'Two complex (non-real) roots' },
+                        { ar: 'جذران حقيقيان مختلفان', en: 'Two distinct real roots' },
+                        { ar: 'جذر حقيقي واحد', en: 'One real root' },
+                        { ar: 'لا توجد جذور', en: 'No roots' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Δ < 0 يعني أن √Δ عدد تخيلي، إذن الجذران مركبان (غير حقيقيين)', en: 'Δ < 0 means √Δ is imaginary, so roots are complex (non-real)' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 5:</strong> ما العلاقة بين المميز والتمثيل البياني للقطع المكافئ؟', en: '<strong>Question 5:</strong> What is the relationship between discriminant and parabola graph?' },
+                    options: [
+                        { ar: 'عدد نقاط تقاطع القطع مع المحور x = عدد الجذور الحقيقية', en: 'Number of x-intercepts = number of real roots' },
+                        { ar: 'المميز يحدد لون القطع', en: 'Discriminant determines parabola color' },
+                        { ar: 'لا توجد علاقة', en: 'No relationship' },
+                        { ar: 'المميز يحدد اتجاه فتح القطع', en: 'Discriminant determines opening direction' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'عدد نقاط تقاطع الرسم البياني مع المحور x يساوي عدد الجذور الحقيقية للمعادلة', en: 'Number of x-intercepts equals number of real roots' }
+                }
+            ]
+        },
+        {
+            id: 'sec2',
+            title: { ar: '🔹 القسم 2: مثل السؤال 26 - Δ < 0 (Q6-Q10)', en: '🔹 Section 2: Like Q26 - Δ < 0 (Q6-Q10)' },
+            questions: [
+                {
+                    q: { ar: '<strong>السؤال 6 (مثل السؤال 26):</strong> ما قيمة المميز للمعادلة <span class="math-display">7x² - 11x + 5 = 0</span>؟', en: '<strong>Question 6 (like Q26):</strong> What is the discriminant of <span class="math-display">7x² - 11x + 5 = 0</span>?' },
+                    svg: svgGraphs.q26_solution,
+                    options: [
+                        { ar: '<span class="math-display">-19</span>', en: '<span class="math-display">-19</span>' },
+                        { ar: '<span class="math-display">19</span>', en: '<span class="math-display">19</span>' },
+                        { ar: '<span class="math-display">261</span>', en: '<span class="math-display">261</span>' },
+                        { ar: '<span class="math-display">-261</span>', en: '<span class="math-display">-261</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'a=7, b=-11, c=5. Δ = (-11)² - 4(7)(5) = 121 - 140 = -19', en: 'a=7, b=-11, c=5. Δ = 121 - 140 = -19' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 7:</strong> ما نوع جذور المعادلة في السؤال 6؟', en: '<strong>Question 7:</strong> What is the nature of roots in Q6?' },
+                    options: [
+                        { ar: 'جذران مركبان (غير حقيقيين)', en: 'Two complex (non-real) roots' },
+                        { ar: 'جذران حقيقيان نسبيان', en: 'Two rational real roots' },
+                        { ar: 'جذران حقيقيان غير نسبيين', en: 'Two irrational real roots' },
+                        { ar: 'جذر حقيقي واحد مكرر', en: 'One repeated real root' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Δ = -19 < 0، إذن الجذران مركبان (غير حقيقيين)', en: 'Δ = -19 < 0, so roots are complex (non-real)' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 8:</strong> ما قيمة المميز للمعادلة <span class="math-display">3x² + 2x + 5 = 0</span>؟', en: '<strong>Question 8:</strong> What is the discriminant of <span class="math-display">3x² + 2x + 5 = 0</span>?' },
+                    options: [
+                        { ar: '<span class="math-display">-56</span>', en: '<span class="math-display">-56</span>' },
+                        { ar: '<span class="math-display">64</span>', en: '<span class="math-display">64</span>' },
+                        { ar: '<span class="math-display">-4</span>', en: '<span class="math-display">-4</span>' },
+                        { ar: '<span class="math-display">56</span>', en: '<span class="math-display">56</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'a=3, b=2, c=5. Δ = 4 - 60 = -56', en: 'a=3, b=2, c=5. Δ = 4 - 60 = -56' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 9:</strong> ما نوع جذور المعادلة <span class="math-display">x² + x + 1 = 0</span>؟', en: '<strong>Question 9:</strong> What is the nature of roots of <span class="math-display">x² + x + 1 = 0</span>?' },
+                    options: [
+                        { ar: 'جذران مركبان', en: 'Two complex roots' },
+                        { ar: 'جذران حقيقيان', en: 'Two real roots' },
+                        { ar: 'جذر واحد مكرر', en: 'One repeated root' },
+                        { ar: 'جذر واحد فقط', en: 'Only one root' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'a=1, b=1, c=1. Δ = 1 - 4 = -3 < 0. جذران مركبان', en: 'a=1, b=1, c=1. Δ = 1 - 4 = -3 < 0. Two complex roots' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 10:</strong> أي معادلة ليس لها جذور حقيقية؟', en: '<strong>Question 10:</strong> Which equation has no real roots?' },
+                    options: [
+                        { ar: '<span class="math-display">x² + 2x + 5 = 0</span>', en: '<span class="math-display">x² + 2x + 5 = 0</span>' },
+                        { ar: '<span class="math-display">x² - 4x + 3 = 0</span>', en: '<span class="math-display">x² - 4x + 3 = 0</span>' },
+                        { ar: '<span class="math-display">x² - 6x + 9 = 0</span>', en: '<span class="math-display">x² - 6x + 9 = 0</span>' },
+                        { ar: '<span class="math-display">x² + 5x + 6 = 0</span>', en: '<span class="math-display">x² + 5x + 6 = 0</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'x² + 2x + 5: Δ = 4 - 20 = -16 < 0. لا جذور حقيقية. الباقي: Δ = 4, 0, 1 (كلها ≥ 0)', en: 'x² + 2x + 5: Δ = -16 < 0. No real roots. Others: Δ = 4, 0, 1 (all ≥ 0)' }
+                }
+            ]
+        },
+        {
+            id: 'sec3',
+            title: { ar: '🔹 القسم 3: مثل السؤال 27 - Δ = 0 (Q11-Q15)', en: '🔹 Section 3: Like Q27 - Δ = 0 (Q11-Q15)' },
+            questions: [
+                {
+                    q: { ar: '<strong>السؤال 11 (مثل السؤال 27):</strong> ما قيمة المميز للمعادلة <span class="math-display">x² + 22x + 121 = 0</span>؟', en: '<strong>Question 11 (like Q27):</strong> What is the discriminant of <span class="math-display">x² + 22x + 121 = 0</span>?' },
+                    svg: svgGraphs.q27_solution,
+                    options: [
+                        { ar: '<span class="math-display">0</span>', en: '<span class="math-display">0</span>' },
+                        { ar: '<span class="math-display">968</span>', en: '<span class="math-display">968</span>' },
+                        { ar: '<span class="math-display">-484</span>', en: '<span class="math-display">-484</span>' },
+                        { ar: '<span class="math-display">484</span>', en: '<span class="math-display">484</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'a=1, b=22, c=121. Δ = 484 - 484 = 0', en: 'a=1, b=22, c=121. Δ = 484 - 484 = 0' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 12:</strong> ما نوع جذور المعادلة في السؤال 11؟', en: '<strong>Question 12:</strong> What is the nature of roots in Q11?' },
+                    options: [
+                        { ar: 'جذر حقيقي نسبي واحد مكرر', en: 'One repeated rational real root' },
+                        { ar: 'جذران حقيقيان نسبيان', en: 'Two rational real roots' },
+                        { ar: 'جذران مركبان', en: 'Two complex roots' },
+                        { ar: 'جذران حقيقيان غير نسبيين', en: 'Two irrational real roots' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Δ = 0 → جذر واحد مكرر. x = -22/2 = -11 (نسبي)', en: 'Δ = 0 → One repeated root. x = -22/2 = -11 (rational)' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 13:</strong> ما قيمة المميز للمعادلة <span class="math-display">4x² - 12x + 9 = 0</span>؟', en: '<strong>Question 13:</strong> What is the discriminant of <span class="math-display">4x² - 12x + 9 = 0</span>?' },
+                    options: [
+                        { ar: '<span class="math-display">0</span>', en: '<span class="math-display">0</span>' },
+                        { ar: '<span class="math-display">144</span>', en: '<span class="math-display">144</span>' },
+                        { ar: '<span class="math-display">-144</span>', en: '<span class="math-display">-144</span>' },
+                        { ar: '<span class="math-display">72</span>', en: '<span class="math-display">72</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'a=4, b=-12, c=9. Δ = 144 - 144 = 0. ملاحظة: 4x² - 12x + 9 = (2x-3)²', en: 'a=4, b=-12, c=9. Δ = 144 - 144 = 0. Note: 4x² - 12x + 9 = (2x-3)²' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 14:</strong> أي معادلة لها جذر حقيقي واحد مكرر؟', en: '<strong>Question 14:</strong> Which equation has one repeated real root?' },
+                    options: [
+                        { ar: '<span class="math-display">x² - 6x + 9 = 0</span>', en: '<span class="math-display">x² - 6x + 9 = 0</span>' },
+                        { ar: '<span class="math-display">x² - 5x + 6 = 0</span>', en: '<span class="math-display">x² - 5x + 6 = 0</span>' },
+                        { ar: '<span class="math-display">x² + 4x + 5 = 0</span>', en: '<span class="math-display">x² + 4x + 5 = 0</span>' },
+                        { ar: '<span class="math-display">x² - 4 = 0</span>', en: '<span class="math-display">x² - 4 = 0</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'x² - 6x + 9 = (x-3)². Δ = 36 - 36 = 0. جذر مكرر x = 3', en: 'x² - 6x + 9 = (x-3)². Δ = 0. Repeated root x = 3' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 15:</strong> ما قيمة k التي تجعل للمعادلة <span class="math-display">x² + kx + 9 = 0</span> جذراً واحداً مكرراً؟', en: '<strong>Question 15:</strong> What value of k gives <span class="math-display">x² + kx + 9 = 0</span> one repeated root?' },
+                    options: [
+                        { ar: '<span class="math-display">k = ±6</span>', en: '<span class="math-display">k = ±6</span>' },
+                        { ar: '<span class="math-display">k = 6 فقط</span>', en: '<span class="math-display">k = 6 only</span>' },
+                        { ar: '<span class="math-display">k = 9</span>', en: '<span class="math-display">k = 9</span>' },
+                        { ar: '<span class="math-display">k = 3</span>', en: '<span class="math-display">k = 3</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Δ = k² - 36 = 0 → k² = 36 → k = ±6', en: 'Δ = k² - 36 = 0 → k² = 36 → k = ±6' }
+                }
+            ]
+        },
+        {
+            id: 'sec4',
+            title: { ar: '🔹 القسم 4: مثل السؤال 28 - Δ > 0 غير مربع كامل (Q16-Q20)', en: '🔹 Section 4: Like Q28 - Δ > 0 Non-Perfect Square (Q16-Q20)' },
+            questions: [
+                {
+                    q: { ar: '<strong>السؤال 16 (مثل السؤال 28):</strong> ما عدد ونوع جذور المعادلة <span class="math-display">-5x² + 8x - 1 = 0</span>؟', en: '<strong>Question 16 (like Q28):</strong> What is the number and nature of roots of <span class="math-display">-5x² + 8x - 1 = 0</span>?' },
+                    svg: svgGraphs.q28_solution,
+                    options: [
+                        { ar: 'جذران حقيقيان غير نسبيين', en: 'Two irrational real roots' },
+                        { ar: 'جذر حقيقي واحد مكرر', en: 'One repeated real root' },
+                        { ar: 'جذران حقيقيان نسبيان', en: 'Two rational real roots' },
+                        { ar: 'جذران مركبان', en: 'Two complex roots' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'a=-5, b=8, c=-1. Δ = 64 - 20 = 44 > 0. √44 ليس مربعاً كاملاً → جذران غير نسبيين', en: 'a=-5, b=8, c=-1. Δ = 44 > 0. √44 not perfect square → Two irrational roots' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 17:</strong> ما قيمة المميز للمعادلة <span class="math-display">2x² + 3x - 5 = 0</span>؟', en: '<strong>Question 17:</strong> What is the discriminant of <span class="math-display">2x² + 3x - 5 = 0</span>?' },
+                    options: [
+                        { ar: '<span class="math-display">49</span>', en: '<span class="math-display">49</span>' },
+                        { ar: '<span class="math-display">-31</span>', en: '<span class="math-display">-31</span>' },
+                        { ar: '<span class="math-display">31</span>', en: '<span class="math-display">31</span>' },
+                        { ar: '<span class="math-display">-49</span>', en: '<span class="math-display">-49</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'a=2, b=3, c=-5. Δ = 9 + 40 = 49', en: 'a=2, b=3, c=-5. Δ = 9 + 40 = 49' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 18:</strong> ما نوع جذور المعادلة في السؤال 17؟', en: '<strong>Question 18:</strong> What is the nature of roots in Q17?' },
+                    options: [
+                        { ar: 'جذران حقيقيان نسبيان (لأن 49 = 7²)', en: 'Two rational real roots (since 49 = 7²)' },
+                        { ar: 'جذران حقيقيان غير نسبيين', en: 'Two irrational real roots' },
+                        { ar: 'جذر واحد مكرر', en: 'One repeated root' },
+                        { ar: 'جذران مركبان', en: 'Two complex roots' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Δ = 49 = 7² (مربع كامل) → جذران نسبيان: x = (-3±7)/4 → x = 1 أو x = -5/2', en: 'Δ = 49 = 7² (perfect square) → Two rational roots: x = 1 or x = -5/2' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 19:</strong> ما نوع جذور المعادلة <span class="math-display">x² + 4x + 2 = 0</span>؟', en: '<strong>Question 19:</strong> What is the nature of roots of <span class="math-display">x² + 4x + 2 = 0</span>?' },
+                    options: [
+                        { ar: 'جذران حقيقيان غير نسبيين', en: 'Two irrational real roots' },
+                        { ar: 'جذران حقيقيان نسبيان', en: 'Two rational real roots' },
+                        { ar: 'جذر واحد مكرر', en: 'One repeated root' },
+                        { ar: 'جذران مركبان', en: 'Two complex roots' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Δ = 16 - 8 = 8 > 0. √8 ليس مربعاً كاملاً → جذران غير نسبيين', en: 'Δ = 8 > 0. √8 not perfect square → Two irrational roots' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 20:</strong> ما نوع جذور المعادلة <span class="math-display">3x² - 2x + 4 = 0</span>؟', en: '<strong>Question 20:</strong> What is the nature of roots of <span class="math-display">3x² - 2x + 4 = 0</span>?' },
+                    options: [
+                        { ar: 'جذران مركبان', en: 'Two complex roots' },
+                        { ar: 'جذران حقيقيان نسبيان', en: 'Two rational real roots' },
+                        { ar: 'جذران حقيقيان غير نسبيين', en: 'Two irrational real roots' },
+                        { ar: 'جذر واحد مكرر', en: 'One repeated root' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'a=3, b=-2, c=4. Δ = 4 - 48 = -44 < 0. جذران مركبان', en: 'a=3, b=-2, c=4. Δ = 4 - 48 = -44 < 0. Two complex roots' }
+                }
+            ]
+        },
+        {
+            id: 'sec5',
+            title: { ar: '🔹 القسم 5: مثل السؤال 29 - Δ > 0 مربع كامل (Q21-Q25)', en: '🔹 Section 5: Like Q29 - Δ > 0 Perfect Square (Q21-Q25)' },
+            questions: [
+                {
+                    q: { ar: '<strong>السؤال 21 (مثل السؤال 29):</strong> ما عدد ونوع جذور المعادلة <span class="math-display">15x² - 7x - 4 = 0</span>؟', en: '<strong>Question 21 (like Q29):</strong> What is the number and nature of roots of <span class="math-display">15x² - 7x - 4 = 0</span>?' },
+                    svg: svgGraphs.q29_solution,
+                    options: [
+                        { ar: 'جذران حقيقيان نسبيان', en: 'Two rational real roots' },
+                        { ar: 'جذران حقيقيان غير نسبيين', en: 'Two irrational real roots' },
+                        { ar: 'جذران مركبان', en: 'Two complex roots' },
+                        { ar: 'جذر حقيقي واحد مكرر', en: 'One repeated real root' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'a=15, b=-7, c=-4. Δ = 49 + 240 = 289 = 17² (مربع كامل!) → جذران نسبيان', en: 'a=15, b=-7, c=-4. Δ = 289 = 17² (perfect square!) → Two rational roots' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 22:</strong> ما قيمة المميز للمعادلة <span class="math-display">x² - 5x + 6 = 0</span>؟', en: '<strong>Question 22:</strong> What is the discriminant of <span class="math-display">x² - 5x + 6 = 0</span>?' },
+                    options: [
+                        { ar: '<span class="math-display">1</span>', en: '<span class="math-display">1</span>' },
+                        { ar: '<span class="math-display">-1</span>', en: '<span class="math-display">-1</span>' },
+                        { ar: '<span class="math-display">49</span>', en: '<span class="math-display">49</span>' },
+                        { ar: '<span class="math-display">0</span>', en: '<span class="math-display">0</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'a=1, b=-5, c=6. Δ = 25 - 24 = 1 = 1²', en: 'a=1, b=-5, c=6. Δ = 25 - 24 = 1 = 1²' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 23:</strong> ما نوع جذور المعادلة في السؤال 22؟', en: '<strong>Question 23:</strong> What is the nature of roots in Q22?' },
+                    options: [
+                        { ar: 'جذران حقيقيان نسبيان (1 و 2)', en: 'Two rational real roots (1 and 2)' },
+                        { ar: 'جذران حقيقيان غير نسبيين', en: 'Two irrational real roots' },
+                        { ar: 'جذر واحد مكرر', en: 'One repeated root' },
+                        { ar: 'جذران مركبان', en: 'Two complex roots' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Δ = 1 = 1² (مربع كامل). الجذور: x = (5±1)/2 → x = 3 أو x = 2... تصحيح: x = 2 أو x = 3', en: 'Δ = 1 = 1². Roots: x = (5±1)/2 → x = 3 or x = 2. Two rational roots' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 24:</strong> ما نوع جذور المعادلة <span class="math-display">2x² + 7x + 3 = 0</span>؟', en: '<strong>Question 24:</strong> What is the nature of roots of <span class="math-display">2x² + 7x + 3 = 0</span>?' },
+                    options: [
+                        { ar: 'جذران حقيقيان نسبيان', en: 'Two rational real roots' },
+                        { ar: 'جذران حقيقيان غير نسبيين', en: 'Two irrational real roots' },
+                        { ar: 'جذر واحد مكرر', en: 'One repeated root' },
+                        { ar: 'جذران مركبان', en: 'Two complex roots' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'a=2, b=7, c=3. Δ = 49 - 24 = 25 = 5² (مربع كامل!) → جذران نسبيان: x = -1/2 أو x = -3', en: 'a=2, b=7, c=3. Δ = 25 = 5² (perfect square!) → Two rational roots: x = -1/2 or x = -3' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 25:</strong> أي معادلة لها جذران حقيقيان نسبيان؟', en: '<strong>Question 25:</strong> Which equation has two rational real roots?' },
+                    options: [
+                        { ar: '<span class="math-display">x² - 7x + 12 = 0</span> (Δ = 1 = 1²)', en: '<span class="math-display">x² - 7x + 12 = 0</span> (Δ = 1 = 1²)' },
+                        { ar: '<span class="math-display">x² + 2x + 3 = 0</span> (Δ = -8)', en: '<span class="math-display">x² + 2x + 3 = 0</span> (Δ = -8)' },
+                        { ar: '<span class="math-display">x² - 4x + 5 = 0</span> (Δ = -4)', en: '<span class="math-display">x² - 4x + 5 = 0</span> (Δ = -4)' },
+                        { ar: '<span class="math-display">x² + 4x + 2 = 0</span> (Δ = 8)', en: '<span class="math-display">x² + 4x + 2 = 0</span> (Δ = 8)' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'x² - 7x + 12: Δ = 49 - 48 = 1 = 1². جذران نسبيان: x = 3 أو x = 4', en: 'x² - 7x + 12: Δ = 1 = 1². Two rational roots: x = 3 or x = 4' }
+                }
+            ]
+        },
+        {
+            id: 'sec6',
+            title: { ar: '🔹 القسم 6: مثل السؤال 30 - التفسير البياني (Q26-Q30)', en: '🔹 Section 6: Like Q30 - Graphical Interpretation (Q26-Q30)' },
+            questions: [
+                {
+                    q: { ar: '<strong>السؤال 26 (مثل السؤال 30):</strong> إذا كان المميز لمعادلة تربيعية سالباً، فإن التمثيل البياني للدالة:', en: '<strong>Question 26 (like Q30):</strong> If discriminant is negative, the graph of the function:' },
+                    svg: svgGraphs.q30_graphical,
+                    options: [
+                        { ar: 'لا يقطع المحور x', en: 'Does NOT cross x-axis' },
+                        { ar: 'يقطع المحور x في نقطتين', en: 'Crosses x-axis at 2 points' },
+                        { ar: 'يمس المحور x في نقطة واحدة', en: 'Touches x-axis at 1 point' },
+                        { ar: 'يمر بنقطة الأصل', en: 'Passes through origin' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Δ < 0 يعني لا جذور حقيقية، إذن الرسم لا يقطع المحور x', en: 'Δ < 0 means no real roots, so graph does not cross x-axis' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 27:</strong> إذا كان المميز موجباً، فإن التمثيل البياني:', en: '<strong>Question 27:</strong> If discriminant is positive, the graph:' },
+                    options: [
+                        { ar: 'يقطع المحور x في نقطتين', en: 'Crosses x-axis at 2 points' },
+                        { ar: 'يمس المحور x في نقطة واحدة', en: 'Touches x-axis at 1 point' },
+                        { ar: 'لا يقطع المحور x', en: 'Does not cross x-axis' },
+                        { ar: 'يمر بنقطة الأصل دائماً', en: 'Always passes through origin' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Δ > 0 يعني جذران حقيقيان مختلفان، إذن الرسم يقطع المحور x في نقطتين', en: 'Δ > 0 means two distinct real roots, so graph crosses x-axis at 2 points' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 28:</strong> إذا كان المميز صفراً، فإن التمثيل البياني:', en: '<strong>Question 28:</strong> If discriminant is zero, the graph:' },
+                    options: [
+                        { ar: 'يمس المحور x في نقطة واحدة (الرأس على المحور x)', en: 'Touches x-axis at 1 point (vertex on x-axis)' },
+                        { ar: 'يقطع المحور x في نقطتين', en: 'Crosses x-axis at 2 points' },
+                        { ar: 'لا يقطع المحور x', en: 'Does not cross x-axis' },
+                        { ar: 'يمر بنقطة الأصل', en: 'Passes through origin' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'Δ = 0 يعني جذر واحد مكرر، إذن الرسم يمس المحور x في نقطة واحدة (الرأس)', en: 'Δ = 0 means one repeated root, so graph touches x-axis at 1 point (vertex)' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 29:</strong> الدالة <span class="math-display">f(x) = x² + 4</span> لها مميز:', en: '<strong>Question 29:</strong> The function <span class="math-display">f(x) = x² + 4</span> has discriminant:' },
+                    svg: svgGraphs.parabola_interpretation,
+                    options: [
+                        { ar: '<span class="math-display">Δ = -16</span> (سالب، لا جذور حقيقية)', en: '<span class="math-display">Δ = -16</span> (negative, no real roots)' },
+                        { ar: '<span class="math-display">Δ = 16</span>', en: '<span class="math-display">Δ = 16</span>' },
+                        { ar: '<span class="math-display">Δ = 0</span>', en: '<span class="math-display">Δ = 0</span>' },
+                        { ar: '<span class="math-display">Δ = 4</span>', en: '<span class="math-display">Δ = 4</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'a=1, b=0, c=4. Δ = 0 - 16 = -16 < 0. لا جذور حقيقية. الرسم فوق المحور x دائماً', en: 'a=1, b=0, c=4. Δ = -16 < 0. No real roots. Graph always above x-axis' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 30:</strong> أي عبارة صحيحة عن العلاقة بين المميز والتمثيل البياني؟', en: '<strong>Question 30:</strong> Which statement about discriminant and graph is true?' },
+                    svg: svgGraphs.discriminant_examples,
+                    options: [
+                        { ar: 'عدد نقاط تقاطع القطع مع المحور x = عدد الجذور الحقيقية', en: 'Number of x-intercepts = number of real roots' },
+                        { ar: 'المميز يحدد لون القطع المكافئ', en: 'Discriminant determines parabola color' },
+                        { ar: 'المميز يحدد عرض القطع', en: 'Discriminant determines parabola width' },
+                        { ar: 'لا توجد علاقة', en: 'No relationship' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'عدد نقاط تقاطع الرسم البياني مع المحور x يساوي دائماً عدد الجذور الحقيقية للمعادلة', en: 'Number of x-intercepts always equals number of real roots' }
+                }
+            ]
+        }
+    ]
+};
+
+function shuffleArray(array) {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+function prepareShuffledExam() {
+    rng = mulberry32(currentSeed);
+    examData = JSON.parse(JSON.stringify(originalExamData));
+    correctAnswersMap = {};
+    let globalIdx = 0;
+    examData.sections.forEach((section) => {
+        section.questions = shuffleArray(section.questions);
+        section.questions.forEach((q) => {
+            const optionsWithCorrect = q.options.map((opt, idx) => ({ option: opt, isCorrect: idx === q.correct }));
+            const shuffledOptions = shuffleArray(optionsWithCorrect);
+            q.options = shuffledOptions.map(o => o.option);
+            q.correct = shuffledOptions.findIndex(o => o.isCorrect);
+            correctAnswersMap[globalIdx] = String.fromCharCode(97 + q.correct);
+            globalIdx++;
+        });
+    });
+}
+
+function reshuffleExam() {
+    const msg = currentLang === 'ar' ? '🔄 سيتم إنشاء أسئلة جديدة ومسح إجاباتك. هل أنت متأكد؟' : '🔄 New questions will be generated. Are you sure?';
+    if (confirm(msg)) {
+        currentSeed = Date.now(); timeRemaining = TOTAL_TIME; answersVisible = false;
+        prepareShuffledExam(); renderExam(); saveState();
+        alert(currentLang === 'ar' ? '🎲 تم تغيير الأسئلة! حظاً موفقاً! 🍀' : '🎲 Questions changed! Good luck! 🍀');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
+function setLanguage(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.getElementById('btn-ar').classList.toggle('active', lang === 'ar');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.body.classList.toggle('en-mode', lang === 'en');
+    
+    document.querySelectorAll('[data-ar]').forEach(el => {
+        el.textContent = el.getAttribute('data-' + lang);
+    });
+    
+    document.querySelectorAll('[data-placeholder-ar]').forEach(el => {
+        el.placeholder = el.getAttribute('data-placeholder-' + lang);
+    });
+    
+    renderExam(); saveState(false);
+}
+
+function renderExam() {
+    const container = document.getElementById('exam-content');
+    const labels = { ar: { option: ['a)', 'b)', 'c)', 'd)'], answer: '✅ الإجابة:' }, en: { option: ['a)', 'b)', 'c)', 'd)'], answer: '✅ Answer:' } };
+    const lbl = labels[currentLang];
+    let html = '';
+    let globalIdx = 0;
+    
+    examData.sections.forEach((section, secIdx) => {
+        const badgeClass = ['module-1', 'module-2', 'module-3', 'module-4', 'module-5', 'module-6'][secIdx];
+        html += '<section class="bg-white p-6 rounded-2xl shadow-lg border-2 border-amber-100">';
+        html += '<div class="text-center mb-4"><span class="module-badge ' + badgeClass + '">' + section.title[currentLang] + '</span></div>';
+        html += '<ol class="space-y-4 text-sm">';
+        
+        section.questions.forEach((q) => {
+            html += '<li class="border-r-4 border-amber-400 pr-4 py-2" id="q-' + globalIdx + '" style="border-right: 4px solid #d97706; padding-right: 1rem;">';
+            html += '<strong class="text-amber-700">' + (globalIdx + 1) + '.</strong> ' + q.q[currentLang] + '<br>';
+            if (q.svg) html += '<div class="graph-container">' + q.svg + '</div>';
+            
+            q.options.forEach((opt, oIdx) => {
+                html += '<label class="cursor-pointer block mt-2 mr-4 hover:bg-amber-50 rounded-lg p-2 transition" style="margin-right: 1rem;">';
+                html += '<input type="radio" name="q' + globalIdx + '" value="' + String.fromCharCode(97 + oIdx) + '" class="mr-2 ml-2">';
+                html += '<span class="arabic-math">' + lbl.option[oIdx] + ' ' + opt[currentLang] + '</span>';
+                html += '</label>';
+            });
+            
+            html += '<div class="answer-box text-green-700 mt-3 font-medium ' + (answersVisible ? '' : 'hidden') + ' bg-green-50 rounded-lg p-3 border border-green-200">';
+            html += lbl.answer + ' ' + lbl.option[q.correct] + ' <span class="arabic-math">' + q.options[q.correct][currentLang] + '</span><br>';
+            html += '<span class="text-sm text-green-700 mt-2 block arabic-math">' + q.answer[currentLang] + '</span>';
+            html += '</div></li>';
+            globalIdx++;
+        });
+        
+        html += '</ol></section>';
+    });
+    
+    container.innerHTML = html;
+}
+
+function startTimer() {
+    updateTimerDisplay();
+    timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateTimerDisplay();
+        if (timeRemaining % 60 === 0) saveState(false);
+        if (timeRemaining <= 600) document.getElementById('timer').classList.add('timer-warning');
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            alert(currentLang === 'ar' ? "⏰ انتهى الوقت!" : "⏰ Time's up!");
+            gradeExam();
+        }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const m = Math.floor(timeRemaining / 60);
+    const s = timeRemaining % 60;
+    document.getElementById('timer').textContent = m.toString().padStart(2,'0') + ':' + s.toString().padStart(2,'0');
+}
+
+function toggleAnswers() {
+    answersVisible = !answersVisible;
+    document.querySelectorAll('.answer-box').forEach(el => el.classList.toggle('hidden', !answersVisible));
+    saveState(false);
+}
+
+function gradeExam() {
+    let correctCount = 0;
+    const sectionScores = new Array(TOTAL_SECTIONS).fill(0);
+    
+    for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+        const sel = document.querySelector('input[name="q'+i+'"]:checked');
+        const li = document.getElementById('q-' + i);
+        if (li) {
+            const isCorrect = sel && sel.value === correctAnswersMap[i];
+            if (isCorrect) {
+                correctCount++;
+                li.classList.add('correct');
+                li.classList.remove('incorrect');
+                sectionScores[Math.floor(i / QUESTIONS_PER_SECTION)]++;
+            } else {
+                li.classList.add('incorrect');
+                li.classList.remove('correct');
+            }
+        }
+    }
+    
+    const score = Math.round((correctCount / TOTAL_QUESTIONS) * 100);
+    document.getElementById('res-total').textContent = score + ' / 100';
+    document.getElementById('res-name').textContent = document.getElementById('studentName').value || (currentLang === 'ar' ? 'بطل' : 'Champion');
+    document.getElementById('res-date').textContent = new Date().toLocaleDateString(currentLang === 'ar' ? 'ar-AE' : 'en-US');
+    
+    const pc = document.getElementById('sections-performance');
+    pc.innerHTML = '';
+    examData.sections.forEach((s, idx) => {
+        pc.innerHTML += '<div class="flex justify-between items-center p-3 bg-white rounded-lg"><span class="text-gray-700">' + s.title[currentLang] + '</span><span class="font-bold text-amber-700">' + sectionScores[idx] + '/' + QUESTIONS_PER_SECTION + '</span></div>';
+    });
+    
+    const badge = document.getElementById('success-badge');
+    document.getElementById('success-percent').textContent = score + '%';
+    
+    if (currentLang === 'ar') {
+        if (score >= 90) { badge.textContent = '🌟 ممتاز جداً!'; badge.className = 'success-badge grade-excellent'; }
+        else if (score >= 75) { badge.textContent = '👏 ممتاز!'; badge.className = 'success-badge grade-good'; }
+        else if (score >= 50) { badge.textContent = '👍 جيد'; badge.className = 'success-badge grade-pass'; }
+        else { badge.textContent = '💪 حاول مرة أخرى'; badge.className = 'success-badge grade-fail'; }
+    } else {
+        if (score >= 90) { badge.textContent = '🌟 Outstanding!'; badge.className = 'success-badge grade-excellent'; }
+        else if (score >= 75) { badge.textContent = '👏 Excellent!'; badge.className = 'success-badge grade-good'; }
+        else if (score >= 50) { badge.textContent = '👍 Good'; badge.className = 'success-badge grade-pass'; }
+        else { badge.textContent = '💪 Try Again'; badge.className = 'success-badge grade-fail'; }
+    }
+    
+    document.getElementById('results-panel').classList.remove('hidden');
+    document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+    if (timerInterval) clearInterval(timerInterval);
+}
+
+function sendResultsToEmail() {
+    const btn = document.getElementById('sendEmailBtn');
+    const status = document.getElementById('emailStatus');
+    btn.disabled = true;
+    btn.textContent = currentLang === 'ar' ? '⏳ جاري الإرسال...' : '⏳ Sending...';
+    
+    const name = document.getElementById('studentName').value || 'N/A';
+    const studentClass = document.getElementById('studentClass').value || 'N/A';
+    const date = document.getElementById('examDate').value || new Date().toLocaleDateString();
+    const score = document.getElementById('res-total').textContent;
+    const successRate = document.getElementById('success-percent').textContent;
+    const badge = document.getElementById('success-badge').textContent;
+    
+    let questionsHTML = '<div style="font-family:Arial; direction:rtl;">';
+    questionsHTML += '<h2>📊 ' + (currentLang === 'ar' ? 'نتيجة امتحان المميز والجذور' : 'Discriminant & Roots Exam Result') + '</h2>';
+    questionsHTML += '<p><strong>' + (currentLang === 'ar' ? 'الاسم' : 'Name') + ':</strong> ' + name + '</p>';
+    questionsHTML += '<p><strong>' + (currentLang === 'ar' ? 'الشعبة' : 'Class') + ':</strong> ' + studentClass + '</p>';
+    questionsHTML += '<p><strong>' + (currentLang === 'ar' ? 'التاريخ' : 'Date') + ':</strong> ' + date + '</p>';
+    questionsHTML += '<p><strong>' + (currentLang === 'ar' ? 'الدرجة' : 'Score') + ':</strong> ' + score + ' (' + successRate + '%)</p>';
+    questionsHTML += '<p><strong>' + (currentLang === 'ar' ? 'التقدير' : 'Grade') + ':</strong> ' + badge + '</p>';
+    questionsHTML += '<hr><h3>' + (currentLang === 'ar' ? 'تفاصيل الإجابات:' : 'Answer Details:') + '</h3><table style="width:100%; border-collapse:collapse;">';
+    questionsHTML += '<tr style="background:#d97706; color:white;"><th style="padding:8px; border:1px solid #ddd;">#</th><th style="padding:8px; border:1px solid #ddd;">' + (currentLang === 'ar' ? 'السؤال' : 'Question') + '</th><th style="padding:8px; border:1px solid #ddd;">' + (currentLang === 'ar' ? 'إجابة الطالب' : 'Student Answer') + '</th><th style="padding:8px; border:1px solid #ddd;">' + (currentLang === 'ar' ? 'الصحيحة' : 'Correct') + '</th><th style="padding:8px; border:1px solid #ddd;">' + (currentLang === 'ar' ? 'النتيجة' : 'Result') + '</th></tr>';
+    
+    let globalIdx = 0;
+    examData.sections.forEach((section) => {
+        questionsHTML += '<tr style="background:#fef3c7;"><td colspan="5" style="padding:8px; font-weight:bold; border:1px solid #ddd;">' + section.title.ar + '</td></tr>';
+        section.questions.forEach((q) => {
+            const sel = document.querySelector('input[name="q'+globalIdx+'"]:checked');
+            const sv = sel ? sel.value : null;
+            const cv = correctAnswersMap[globalIdx];
+            const ic = sv === cv;
+            let sat = currentLang === 'ar' ? '❌ لم يجب' : '❌ No answer';
+            let sac = '#dc2626';
+            if (sv) {
+                const si = sv.charCodeAt(0) - 97;
+                sat = q.options[si][currentLang];
+                sac = ic ? '#16a34a' : '#dc2626';
+            }
+            const cat = q.options[q.correct][currentLang];
+            const rb = ic ? '#f0fdf4' : '#fef2f2';
+            questionsHTML += '<tr style="background:' + rb + ';"><td style="padding:8px; border:1px solid #ddd; text-align:center;">' + (globalIdx+1) + '</td><td style="padding:8px; border:1px solid #ddd;">' + q.q.ar.replace(/<[^>]+>/g, '').substring(0, 80) + '...</td><td style="padding:8px; border:1px solid #ddd; color:' + sac + ';">' + sat + '</td><td style="padding:8px; border:1px solid #ddd; color:#16a34a;">' + cat + '</td><td style="padding:8px; border:1px solid #ddd; text-align:center;">' + (ic?'✅':'❌') + '</td></tr>';
+            globalIdx++;
+        });
+    });
+    questionsHTML += '</table></div>';
+    
+    const templateParams = {
+        to_email: TARGET_EMAIL,
+        student_name: name,
+        student_class: studentClass,
+        exam_date: date,
+        total_score: score,
+        success_rate: successRate,
+        grade: badge,
+        answers_table: questionsHTML
+    };
+    
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
+        .then(() => {
+            status.textContent = currentLang === 'ar' ? '✅ تم الإرسال بنجاح!' : '✅ Sent successfully!';
+            status.style.color = '#16a34a';
+            btn.textContent = currentLang === 'ar' ? '✓ تم' : '✓ Sent';
+            alert(currentLang === 'ar' ? 'تم إرسال النتيجة للمعلم بنجاح!' : 'Result sent to teacher successfully!');
+        })
+        .catch((error) => {
+            status.textContent = currentLang === 'ar' ? '❌ فشل الإرسال' : '❌ Failed to send';
+            status.style.color = '#dc2626';
+            btn.disabled = false;
+            btn.textContent = currentLang === 'ar' ? '📧 حاول مرة أخرى' : '📧 Try Again';
+            alert(currentLang === 'ar' ? 'فشل الإرسال: ' + error.text : 'Failed: ' + error.text);
+        });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    const saved = loadState();
+    if (saved && saved.seed) {
+        currentSeed = saved.seed;
+        currentLang = saved.lang || 'ar';
+        timeRemaining = saved.timeRemaining !== undefined ? saved.timeRemaining : TOTAL_TIME;
+        answersVisible = saved.answersVisible || false;
+    } else {
+        currentSeed = Date.now();
+    }
+    
+    document.getElementById('btn-ar').classList.toggle('active', currentLang === 'ar');
+    document.getElementById('btn-en').classList.toggle('active', currentLang === 'en');
+    document.body.classList.toggle('en-mode', currentLang === 'en');
+    document.documentElement.lang = currentLang;
+    document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+    
+    document.querySelectorAll('[data-ar]').forEach(el => {
+        el.textContent = el.getAttribute('data-' + currentLang);
+    });
+    
+    document.querySelectorAll('[data-placeholder-ar]').forEach(el => {
+        el.placeholder = el.getAttribute('data-placeholder-' + currentLang);
+    });
+    
+    prepareShuffledExam();
+    renderExam();
+    if (saved) {
+        if (saved.studentName) document.getElementById('studentName').value = saved.studentName;
+        if (saved.studentClass) document.getElementById('studentClass').value = saved.studentClass;
+        if (saved.examDate) document.getElementById('examDate').value = saved.examDate;
+        if (saved.answers) restoreAnswers(saved.answers);
+    }
+    setupAnswerListeners();
+    setupInputListeners();
+    startTimer();
+});
+window.addEventListener('beforeunload', () => saveState(false));
+</script>
+</body>
+</html>
